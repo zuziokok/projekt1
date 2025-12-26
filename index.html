@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Chwytanie elementów jQuery - z przyciskami powrotu</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <style>
+    body { font-family: Arial; }
+    .highlight { background-color: yellow; }
+    .red { color: red; }
+    .box { border: 1px solid #333; padding: 10px; margin: 5px; }
+    button { margin: 5px; padding: 5px 10px; cursor: pointer; }
+    #buttons { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1 id="mainTitle">Witaj na stronie jQuery</h1>
+
+  <p class="desc">To jest pierwszy akapit.</p>
+  <p class="desc">To jest drugi akapit.</p>
+
+  <div class="box">
+    <p>Tekst w divie 1</p>
+  </div>
+  <div class="box">
+    <p>Tekst w divie 2</p>
+  </div>
+
+  <ul id="list">
+    <li>Punkt 1</li>
+    <li>Punkt 2</li>
+    <li>Punkt 3</li>
+    <li>Punkt 4</li>
+    <li>Punkt 5</li>
+  </ul>
+
+  <div id="buttons">
+    <button id="highlightBtn">Podświetl akapity</button>
+    <button id="changeTextBtn">Zmień tekst nagłówka</button>
+    <button id="filterBtn">Pokaż tylko parzyste elementy listy</button>
+    <button id="resetBtn">Przywróć pełną listę</button>
+    <button id="resetTextBtn">Przywróć tekst nagłówka</button>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      // 🔹 Zmienna do zapamiętania oryginalnego tekstu nagłówka
+      const originalTitle = $("#mainTitle").text();
+
+      // 🔹 Ustawienia początkowe
+      $("#mainTitle").css("color", "blue");
+      $(".desc").addClass("highlight");
+      $("div.box p").css("font-weight", "bold");
+      $("#list li:nth-child(2)").addClass("red");
+
+      // 🔹 Podświetlenie akapitów
+      $("#highlightBtn").click(function() {
+        $("p").toggleClass("highlight");
+      });
+
+      // 🔹 Zmiana tekstu nagłówka z animacją
+      $("#changeTextBtn").click(function() {
+        $("#mainTitle").fadeOut(200, function() {
+          $(this).text("Tekst został zmieniony!").fadeIn(200);
+        });
+      });
+
+      // 🔹 Przywrócenie oryginalnego tekstu nagłówka
+      $("#resetTextBtn").click(function() {
+        $("#mainTitle").fadeOut(200, function() {
+          $(this).text(originalTitle).fadeIn(200);
+        });
+      });
+
+      // 🔹 Pokazanie tylko parzystych elementów listy
+      $("#filterBtn").click(function() {
+        $("#list li").hide();
+        $("#list li:nth-child(even)").show();
+      });
+
+      // 🔹 Przywrócenie pełnej listy
+      $("#resetBtn").click(function() {
+        $("#list li").show();
+      });
+    });
+  </script>
+</body>
+</html>
